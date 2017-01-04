@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include <pattern.h>
+#include <move.h>
+#include "main.h"
 
 int HC595_clockPin=0;   // SH_CP of 74HC595 
 int HC595_latchPin=1;   // ST_CP of 74HC595 
@@ -15,6 +17,7 @@ int numPatterns=sizeof(pattern)/8;
 int tickCount=0;
 int tickCountMax=50;      // How many times to loop before changing the pattern
 unsigned int currentPattern[4];
+
 
 void setup() {
   // put your setup code here, to run once:
