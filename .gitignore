@@ -4,3 +4,5 @@
 .piolibdeps
 *.swp
 snake.c
+*.orig
+*.out
