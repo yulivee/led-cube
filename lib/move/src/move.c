@@ -87,11 +87,11 @@ void init( Snake snake, int size, int x, int y, int z, Direction direction )/*{{
     }
 }/*}}}*/
 
-void grow( Snake snake, const Snakesegment *new_segment)
+void grow( Snake snake, const Snakesegment *new_segment)/*{{{*/
 {
     snake.segments[snake.size++] = *new_segment;
     is_cell_occupied[snake.segments[snake.size+1].x][snake.segments[snake.size+1].y][snake.segments[snake.size+1].z] = 1;
-}
+}/*}}}*/
 
 bool is_valid_move( Snake snake, int new_head_x, int new_head_y, int new_head_z )/*{{{*/
 {
@@ -137,33 +137,6 @@ void init_segment(Snake snake, int i)/*{{{*/
     };
 }/*}}}*/
 
-bool snake_chdir( Snake snake )/*{{{*/
-{
-
-    bool invalid_move = true;
-    int new_direction;
-    while( invalid_move ) {
-        int new_direction = random(4,9);
-        int dir_x, dir_y, dir_z;
-        get_directions(&dir_x, &dir_y, &dir_z, new_direction);
-        if( is_valid_move( snake, dir_x, dir_y, dir_z ) ) {
-            invalid_move = 0;
-        }
-    }
-
-    set_dir(snake, new_direction);
-
-    // if the snake is not full size yet, grow it
-    if ( snake.size < SNAKE_LENGHT ) {
-        snake_grow( snake, &snake.segments[snake.size - 1] );
-    }
-
-    move(snake);
-
-    return 1;
-
-}/*}}}*/
-
 bool move( Snake snake )/*{{{*/
 {
 
@@ -198,3 +171,31 @@ bool move( Snake snake )/*{{{*/
     return true;
 
 }/*}}}*/
+
+bool snake_chdir( Snake snake )/*{{{*/
+{
+
+    bool invalid_move = true;
+    int new_direction;
+    while( invalid_move ) {/*{{{*/
+        int new_direction = random(4,9);/*}}}*/
+        int dir_x, dir_y, dir_z;
+        get_directions(&dir_x, &dir_y, &dir_z, new_direction);
+        if( is_valid_move( snake, dir_x, dir_y, dir_z ) ) {
+            invalid_move = 0;
+        }
+    }
+
+    set_dir(snake, new_direction);
+
+    // if the snake is not full size yet, grow it
+    if ( snake.size < SNAKE_LENGHT ) {
+        grow( snake, &snake.segments[snake.size - 1] );
+    }
+
+    move(snake);
+
+    return 1;
+
+}/*}}}*/
+
