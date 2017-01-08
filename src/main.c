@@ -15,8 +15,8 @@ void setup() {
 
 void displayPattern ()
 {
-   //snake_chdir(snake, random(4,9));
    snake_chdir(snake);
+   generate_bit_pattern(snake);
 }
 
 void loop() {
